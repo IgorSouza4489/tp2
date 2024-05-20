@@ -45,7 +45,21 @@ public class ConsultaService {
         if(resourceNotFound(id)){
             throw new ResourceNotFoundException("Consulta Não Localizada");
         }
-        consultas.set(id,consulta);
+        for (int i = 0; i < consultas.size(); i++) {
+            if (consultas.get(i).getId().equals(id)) {
+                consultas.set(i, consulta);
+                break;
+            }
+        }
+
+    }
+
+    public void deleteById(Integer id) {
+        if(resourceNotFound(id)){
+            throw new ResourceNotFoundException("Consulta não localizada");
+        }
+       //consultas.remove(consultas.get(id);
+        consultas.removeIf(e -> e.getId().equals(id));
     }
 
     private boolean resourceNotFound(Integer id) {
