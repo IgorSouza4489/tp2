@@ -1,11 +1,10 @@
 package com.example.tp2.model;
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Entity;
 
-import javax.persistence.*;
 import java.time.LocalDate;
 
 

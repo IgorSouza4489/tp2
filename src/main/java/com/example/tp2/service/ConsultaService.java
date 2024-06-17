@@ -2,8 +2,6 @@ package com.example.tp2.service;
 
 import com.example.tp2.exception.ResourceNotFoundException;
 import com.example.tp2.model.Consulta;
-import com.example.tp2.repository.ConsultaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,12 +11,9 @@ import java.util.Optional;
 
 @Service
 public class ConsultaService {
+
+
     List<Consulta> consultas = initValues();
-
-
-
-
-
     private List<Consulta> initValues(){
         ArrayList<Consulta> consultas1 = new ArrayList<>();
         consultas1.add( new Consulta(1,
@@ -30,11 +25,8 @@ public class ConsultaService {
         return consultas1;
     }
 
-    @Autowired
-    ConsultaRepository consultaRepository;
-
     public List<Consulta> getAll() {
-        return this.consultaRepository.findAll();
+        return this.consultas;
     }
 
     public Consulta getById(Integer id) {
