@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
-
 @Entity
 @Data
 @NoArgsConstructor
@@ -19,9 +18,13 @@ public class Consulta {
     private Integer id;
     private LocalDate data;
 
-    private Integer idPaciente;
+    @ManyToOne
+    @JoinColumn(name = "id_paciente", referencedColumnName = "id")
+    private Usuario paciente;
 
-    private Integer idMedico;
+    @ManyToOne
+    @JoinColumn(name = "id_medico", referencedColumnName = "id")
+    private Usuario medico;
 
     private Boolean consultaFinalizada;
 

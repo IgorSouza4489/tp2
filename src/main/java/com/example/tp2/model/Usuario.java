@@ -1,18 +1,16 @@
 package com.example.tp2.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +20,10 @@ public class Usuario {
     private String senha;
     private boolean isDoctor;
     private String especialidade;
+
+    @OneToMany(mappedBy = "paciente")
+    private List<Consulta> consultasPaciente;
+
+    @OneToMany(mappedBy = "medico")
+    private List<Consulta> consultasMedico;
 }

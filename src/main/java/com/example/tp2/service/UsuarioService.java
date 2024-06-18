@@ -1,11 +1,9 @@
 package com.example.tp2.service;
 
 import com.example.tp2.exception.ResourceNotFoundException;
-import com.example.tp2.model.Consulta;
 import com.example.tp2.model.Usuario;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -13,9 +11,10 @@ import java.util.Optional;
 @Service
 public class UsuarioService {
     List<Usuario> usuarios = initValues();
-    private List<Usuario> initValues(){
+
+    private List<Usuario> initValues() {
         ArrayList<Usuario> usuarios1 = new ArrayList<>();
-        usuarios1.add( new Usuario(1, "Igor", "igor@gmail.com", "123", false, "Clínico Drone" ));
+        usuarios1.add(new Usuario(1, "Igor", "igor@gmail.com", "123", false, "Clínico Drone", new ArrayList<>(), new ArrayList<>()));
         return usuarios1;
     }
 
@@ -24,11 +23,11 @@ public class UsuarioService {
     }
 
     public Usuario getById(Integer id) {
-        if(id < 0){
+        if (id < 0) {
             throw new ResourceNotFoundException("Valor Invalido - NAO PODE SER NEGATIVO");
-        }else {
-            Optional<Usuario> consultaOpt = usuarios.stream().filter(usuario -> usuario.getId() == id).findFirst();
-            if(consultaOpt.isEmpty()) throw new ResourceNotFoundException("Objeto Nao Encontrado");
+        } else {
+            Optional<Usuario> consultaOpt = usuarios.stream().filter(usuario -> usuario.getId().equals(id)).findFirst();
+            if (consultaOpt.isEmpty()) throw new ResourceNotFoundException("Objeto Nao Encontrado");
             return consultaOpt.get();
         }
     }
@@ -38,7 +37,7 @@ public class UsuarioService {
     }
 
     public void update(Integer id, Usuario usuario) {
-        if(resourceNotFound(id)){
+        if (resourceNotFound(id)) {
             throw new ResourceNotFoundException("Usuário Não Localizado");
         }
         for (int i = 0; i < usuarios.size(); i++) {
@@ -50,14 +49,13 @@ public class UsuarioService {
     }
 
     public void deleteById(Integer id) {
-        if(resourceNotFound(id)){
+        if (resourceNotFound(id)) {
             throw new ResourceNotFoundException("Usuário não localizado");
         }
-        //consultas.remove(consultas.get(id);
         usuarios.removeIf(e -> e.getId().equals(id));
     }
 
     private boolean resourceNotFound(Integer id) {
-        return usuarios.stream().filter(consulta -> consulta.getId() == id).findFirst().isEmpty();
+        return usuarios.stream().filter(consulta -> consulta.getId().equals(id)).findFirst().isEmpty();
     }
 }
